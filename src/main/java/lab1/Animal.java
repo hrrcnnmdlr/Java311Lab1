@@ -1,126 +1,205 @@
 package lab1;
 
 /**
+ * class Animal for Lab1 subject Java programming technologies
+ * <p>
  *
- *
- *
- *
- *
+ * @author hrrcnnmdlr
+ * @version 1.2.0
  */
-public class Person {
-    private String fullName;
-    private int age;
-    private boolean retired;
+public class Animal {
+    /**
+     * Internal attribute: name is name of animal
+     * <p>
+     * Internal attribute: sex is sex of animal
+     * <p>
+     * Internal attribute: age is age of animal
+     */
+    protected String name;
+    protected String sex;
+    protected int age;
 
-    public Person() {
+    /**
+     * Getter method
+     *
+     * @return name
+     */
+    public String getName() {
+        return name;
     }
 
-    public Person(String fullName, int age, boolean retired) {
-        this.fullName = fullName;
-        this.age = age;
-        this.retired = retired;
+    /**
+     * Getter method
+     *
+     * @return sex
+     */
+    public String getSex() {
+        return sex;
     }
 
-    private String getFullName() {
-        return fullName;
-    }
-
-    private int getAge() {
+    /**
+     * Getter method
+     *
+     * @return age
+     */
+    public int getAge() {
         return age;
-    }
-
-    private boolean isRetired() {
-        return (age > 65);
     }
 
     @Override
     public String toString() {
-        return "Person{"
-                + "fullName='" + fullName + '\''
-                + ", age=" + age
-                + ", retired=" + retired
-                + '}';
+        return "Animal: \n"
+                + "    Name: " + name + '\n'
+                + "    Sex: " + sex + '\n'
+                + "    Age: " + age + " y.o\n";
     }
 
+    /**
+     * equals is override method for class Object
+     * <p>
+     *
+     * @param o is object that is compared to the current object
+     * @return true if animals is equals or false if animals isn't equals
+     */
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
+        if (o == null || getClass() != o.getClass()) return false;
+        if (this.hashCode() != o.hashCode()) return false;
+        if (this == o) return true;
 
-        Person person = (Person) o;
+        Animal animal = (Animal) o;
 
-        if (getAge() != person.getAge()) {
+        if (getAge() != animal.getAge()) {
             return false;
-        }
-        if (isRetired() != person.isRetired()) {
+        } else if (!getSex().equals(animal.getSex())) {
             return false;
-        }
-        return getFullName() != null
-                ? getFullName().equals(person.getFullName())
-                : person.getFullName() == null;
-
+        } else return getName().equals(animal.getName());
     }
 
+    /**
+     * hashCode is override method for class Object
+     * <p>
+     *
+     * @return hashCode that is defined from length of name multiply by age
+     */
     @Override
     public int hashCode() {
-        return fullName.length() * age;
+        return name.length() * age;
     }
 
     public static class Builder {
-        private Person newPerson;
+        private final Animal newAnimal;
 
         public Builder() {
-            newPerson = new Person();
+            newAnimal = new Animal();
         }
 
-        public Builder withFullname(String fullName){
-            newPerson.fullName = fullName;
+        public Builder withName(String name) {
+            newAnimal.name = name;
             return this;
         }
 
-        public Builder withAge(int age){
-            newPerson.age = age;
+        public Builder withSex(String sex) {
+            newAnimal.sex = sex;
             return this;
         }
 
-        public Builder withRetired(boolean retired){
-            newPerson.retired = retired;
+        public Builder withAge(int age) {
+            newAnimal.age = age;
             return this;
         }
 
-        public Person build(){
-            return newPerson;
+        public Animal build() {
+            return newAnimal;
         }
     }
 
+    /**
+     * Setter method
+     *
+     * @param name is name of animal
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * addAge is method that increases age by one
+     */
+    public void addAge() {
+        age = this.age + 1;
+    }
+
+    /**
+     * Setter method
+     *
+     * @param sex is sex of animal
+     */
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
+    /**
+     * eat is method which print line that animal eat food
+     *
+     * @param food is food which animal eat
+     */
+    public void eat(String food) {
+        System.out.print(name);
+        System.out.print(" eats ");
+        System.out.println(food);
+    }
+
+    /**
+     * sleep is method which print line that animal sleep
+     */
+    public void sleep() {
+        System.out.print(name);
+        System.out.println(" sleeps");
+    }
+
+    /**
+     * run is method which print line that animal runs
+     */
+    public void run() {
+        System.out.print(name);
+        System.out.println(" runs");
+    }
 
     public static void main(String... strings) {
-        Person person1 = new Person.Builder()
-                .withFullname("Jane Creative")
-                .withAge(32)
-                .withRetired(false)
+        Animal animal1 = new Animal.Builder()
+                .withName("Donald")
+                .withSex("Male")
+                .withAge(6)
                 .build();
-        Person person2 = new Person.Builder()
-                .withFullname("Jane Creative")
-                .withAge(32)
-                .withRetired(false)
+        Animal animal2 = new Animal.Builder()
+                .withName("Donald")
+                .withSex("Male")
+                .withAge(6)
                 .build();
-        Person person3 = new Person.Builder()
-                .withFullname("Kanye West")
-                .withAge(32)
-                .withRetired(false)
+        Animal animal3 = new Animal.Builder()
+                .withName("Virginia")
+                .withSex("Female")
+                .withAge(2)
                 .build();
-        System.out.println("person1.equals(person2)? " + person1.equals(person2));
-        System.out.println("person1.equals(person3)? " + person1.equals(person3));
-        System.out.println(person1);
-        System.out.println(person2);
-        System.out.println(person3);
+        System.out.println("Is animal2 equals animal1? " + animal1.equals(animal2));
+        System.out.println(animal1);
+        System.out.println(animal2);
+        animal2.addAge();
+        System.out.println("Is animal2 equals animal1? " + animal1.equals(animal2));
+        System.out.println(animal1);
+        System.out.println(animal2);
+        System.out.println("Is animal3 equals animal1? " + animal1.equals(animal3));
+        System.out.println(animal1);
+        System.out.println(animal3);
+        animal3.setSex("Male");
+        System.out.println(animal3);
+        animal1.eat("apple");
+        animal2.run();
+        animal2.setName("Mario");
+        animal2.eat("apple");
+        animal3.sleep();
     }
-
 }
 
 
